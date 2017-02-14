@@ -2,12 +2,13 @@
   "name": "react-scroll-animation",
   "version": "0.0.1",
   "description": "react animation library and slides",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "start-demo": "npm run serve-demo | npm run dev",
     "serve-demo": "./node_modules/.bin/http-server -p 8080",
     "dev": "webpack-dev-server --progress --colors --port 8090 --host 0.0.0.0 --config demo.webpack.config.js",
-    "test": "standard || exit 0"
+    "test": "standard || exit 0",
+    "prepublish": "babel --plugins transform-es2015-modules-umd,transform-react-jsx src --out-dir ./dist"
   },
   "repository": {
     "type": "git",
@@ -29,12 +30,15 @@
     "react-dom": "^15.4.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.23.0",
     "babel-core": "^6.18.2",
     "babel-loader": "^6.2.8",
+    "babel-plugin-transform-react-jsx": "^6.23.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "http-server": "^0.9.0",
     "jsx-loader": "^0.13.2",
+    "react-tools": "^0.13.3",
     "standard": "^8.6.0",
     "webpack": "^1.13.3",
     "webpack-dev-server": "^1.16.2"

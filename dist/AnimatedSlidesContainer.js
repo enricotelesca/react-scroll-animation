@@ -1,0 +1,153 @@
+(function (global, factory) {
+  if (typeof define === "function" && define.amd) {
+    define(['exports', 'react', './ScrollAnimator.js', './utils.js'], factory);
+  } else if (typeof exports !== "undefined") {
+    factory(exports, require('react'), require('./ScrollAnimator.js'), require('./utils.js'));
+  } else {
+    var mod = {
+      exports: {}
+    };
+    factory(mod.exports, global.react, global.ScrollAnimator, global.utils);
+    global.AnimatedSlidesContainer = mod.exports;
+  }
+})(this, function (exports, _react, _ScrollAnimator, _utils) {
+  /**
+   * Created by enrico on 24/11/16.
+   */
+  'use strict';
+
+  Object.defineProperty(exports, "__esModule", {
+    value: true
+  });
+
+  var _react2 = _interopRequireDefault(_react);
+
+  var _ScrollAnimator2 = _interopRequireDefault(_ScrollAnimator);
+
+  function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {
+      default: obj
+    };
+  }
+
+  class AnimatedSlidesContainer extends _react.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        isStatic: false,
+        style: {
+          width: '100%',
+          height: '0px',
+          top: '0px',
+          left: '0px',
+          backgroundColor: 'transparent'
+        },
+        scrollAnimatorOpts: {
+          heightFactor: props.heightFactor || 4,
+          scrollingStart: props.scrollingStart || props.heightFactor ? props.heightFactor / 2 : 2,
+          offsetTop: 0,
+          isStatic: false
+        },
+        scrollAnimator: null
+      };
+
+      this._getContainerStyle = this._getContainerStyle.bind(this);
+      this._isStatic = this._isStatic.bind(this);
+      this._isStatic = this._isStatic.bind(this);
+    }
+
+    componentDidMount() {
+      this.state.isStatic = this._isStatic();
+      if (typeof window !== 'undefined') {
+        window.addEventListener('resize', () => {
+          let state = this.state;
+          if (this._isStatic() !== state.isStatic) {
+            state.isStatic = this._isStatic();
+            state = this._computeFullState(state, this.props);
+          }
+          state.style = this._getContainerStyle(state, this.props);
+          this.setState(state);
+        });
+      }
+      this.setState(this._computeFullState(this.state, this.props), () => {
+        const originalHash = window.location.hash;
+        if (!this.state.isStatic) {
+          window.location.hash = '';
+          window.location.hash = originalHash;
+        }
+      });
+    }
+
+    render() {
+      let animatedVersion = _react2.default.createElement(
+        'div',
+        { style: { position: 'relative', zIndex: 2, overflow: 'hidden' }, ref: 'wrapper' },
+        _react2.default.createElement(
+          'div',
+          { style: Object.assign({}, this.state.style, { position: 'absolute', zIndex: 2 }) },
+          _react2.default.Children.toArray(this.props.children).map((item, index) => _react2.default.cloneElement(item, { key: index, index: index, scrollAnimator: this.state.scrollAnimator, isStaticVersion: false, staticVersionSlideOffset: 0 }))
+        ),
+        _react2.default.createElement('div', { style: Object.assign({}, this.state.style, { position: 'relative', zIndex: 1 }) })
+      );
+
+      let staticVersion = _react2.default.createElement(
+        'div',
+        { style: { position: 'relative', zIndex: 2, overflow: 'hidden' }, ref: 'wrapper' },
+        _react2.default.createElement(
+          'div',
+          { style: { position: 'relative', zIndex: 2 } },
+          _react2.default.Children.toArray(this.props.children).map((item, index) => _react2.default.cloneElement(item, { key: index, index: index, scrollAnimator: this.state.scrollAnimator, isStaticVersion: true, staticVersionSlideOffset: this.props.staticVersionSlideOffset }))
+        )
+      );
+
+      if (this._isStatic()) {
+        return staticVersion;
+      }
+      return animatedVersion;
+    }
+
+    _computeFullState(state, props) {
+      state.scrollAnimatorOpts.offsetTop = this.refs.wrapper.getBoundingClientRect().top + _utils.scroll.y();
+      if (props.heightFactor) {
+        state.scrollAnimatorOpts.heightFactor = props.heightFactor;
+      }
+      if (props.scrollingStart) {
+        state.scrollAnimatorOpts.scrollingStart = props.scrollingStart;
+      }
+      state.scrollAnimatorOpts.isStatic = this._isStatic();
+      if (!state.scrollAnimator) {
+        state.scrollAnimator = new _ScrollAnimator2.default(state.scrollAnimatorOpts);
+      } else {
+        /**
+         * @TODO
+         * update scrollAnimator with new props?
+         */
+        state.scrollAnimator.setOpts(state.scrollAnimatorOpts);
+      }
+      state.style = this._getContainerStyle(state, props);
+      return state;
+    }
+
+    _getContainerStyle(state, props) {
+      let style = state.style;
+      if (typeof window !== 'undefined') {
+        style.height = window.innerHeight * state.scrollAnimatorOpts.heightFactor * (_react2.default.Children.toArray(props.children).length || 1) + 'px' || 100 * state.scrollAnimatorOpts.heightFactor * (props.children.length || 1) + 'vh';
+      }
+      return style;
+    }
+
+    _isStatic() {
+      if (this.props.detectStaticFunction) {
+        return this.props.detectStaticFunction;
+      } else {
+        if (typeof window !== 'undefined') {
+          return (/(android|bb\d+|meego).+mobile|avantgo|bada\/|blackberry|blazer|compal|elaine|fennec|hiptop|iemobile|ip(hone|od)|ipad|iris|kindle|Android|Silk|lge |maemo|midp|mmp|netfront|opera m(ob|in)i|palm( os)?|phone|p(ixi|re)\/|plucker|pocket|psp|series(4|6)0|symbian|treo|up\.(browser|link)|vodafone|wap|windows (ce|phone)|xda|xiino/i.test(navigator.userAgent) || /1207|6310|6590|3gso|4thp|50[1-6]i|770s|802s|a wa|abac|ac(er|oo|s)|ai(ko|rn)|al(av|ca|co)|amoi|an(ex|ny|yw)|aptu|ar(ch|go)|as(te|us)|attw|au(di|m|r |s )|avan|be(ck|ll|nq)|bi(lb|rd)|bl(ac|az)|br(e|v)w|bumb|bw(n|u)|c55\/|capi|ccwa|cdm|cell|chtm|cldc|cmd|co(mp|nd)|craw|da(it|ll|ng)|dbte|dcs|devi|dica|dmob|do(c|p)o|ds(12|d)|el(49|ai)|em(l2|ul)|er(ic|k0)|esl8|ez([4-7]0|os|wa|ze)|fetc|fly(|_)|g1 u|g560|gene|gf5|gmo|go(\.w|od)|gr(ad|un)|haie|hcit|hd(m|p|t)|hei|hi(pt|ta)|hp( i|ip)|hsc|ht(c(| |_|a|g|p|s|t)|tp)|hu(aw|tc)|i(20|go|ma)|i230|iac( ||\/)|ibro|idea|ig01|ikom|im1k|inno|ipaq|iris|ja(t|v)a|jbro|jemu|jigs|kddi|keji|kgt( |\/)|klon|kpt |kwc|kyo(c|k)|le(no|xi)|lg( g|\/(k|l|u)|50|54|[a-w])|libw|lynx|m1w|m3ga|m50\/|ma(te|ui|xo)|mc(01|21|ca)|mcr|me(rc|ri)|mi(o8|oa|ts)|mmef|mo(01|02|bi|de|do|t(| |o|v)|zz)|mt(50|p1|v )|mwbp|mywa|n10[0-2]|n20[2-3]|n30(0|2)|n50(0|2|5)|n7(0(0|1)|10)|ne((c|m)|on|tf|wf|wg|wt)|nok(6|i)|nzph|o2im|op(ti|wv)|oran|owg1|p800|pan(a|d|t)|pdxg|pg(13|([1-8]|c))|phil|pire|pl(ay|uc)|pn2|po(ck|rt|se)|prox|psio|ptg|qaa|qc(07|12|21|32|60|[2-7]|i)|qtek|r380|r600|raks|rim9|ro(ve|zo)|s55\/|sa(ge|ma|mm|ms|ny|va)|sc(01|h|oo|p)|sdk\/|se(c(|0|1)|47|mc|nd|ri)|sgh|shar|sie(|m)|sk0|sl(45|id)|sm(al|ar|b3|it|t5)|so(ft|ny)|sp(01|h|v|v )|sy(01|mb)|t2(18|50)|t6(00|10|18)|ta(gt|lk)|tcl|tdg|tel(i|m)|tim|tmo|to(pl|sh)|ts(70|m|m3|m5)|tx9|up(\.b|g1|si)|utst|v400|v750|veri|vi(rg|te)|vk(40|5[0-3]|v)|vm40|voda|vulc|vx(52|53|60|61|70|80|81|83|85|98)|w3c(| )|webc|whit|wi(g |nc|nw)|wmlb|wonu|x700|yas|your|zeto|zte/i.test(navigator.userAgent.substr(0, 4)) || _utils.dimensions.x() < 1025
+          );
+        } else {
+          return true;
+        }
+      }
+    }
+  }
+  exports.default = AnimatedSlidesContainer;
+});

@@ -1,7 +1,7 @@
 'use strict'
 
 import React, {Component} from 'react'
-import AnimatedComponent from './AnimatedComponent.jsx'
+import AnimatedComponent from './AnimatedComponent.js'
 
 class Slide extends Component {
   constructor (props) {
