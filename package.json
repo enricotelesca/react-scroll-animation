@@ -1,0 +1,43 @@
+{
+  "name": "react-scroll-animation",
+  "version": "0.0.1",
+  "description": "react animation library and slides",
+  "main": "index.js",
+  "scripts": {
+    "start-demo": "npm run serve-demo | npm run dev",
+    "serve-demo": "./node_modules/.bin/http-server -p 8080",
+    "dev": "webpack-dev-server --progress --colors --port 8090 --host 0.0.0.0 --config demo.webpack.config.js",
+    "test": "standard || exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enricotelesca/react-scroll-animation.git"
+  },
+  "keywords": [
+    "react",
+    "animations",
+    "js",
+    "ES6"
+  ],
+  "author": "Enrico Telesca",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/enricotelesca/react-scroll-animation/issues"
+  },
+  "peerDependencies": {
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "http-server": "^0.9.0",
+    "jsx-loader": "^0.13.2",
+    "standard": "^8.6.0",
+    "webpack": "^1.13.3",
+    "webpack-dev-server": "^1.16.2"
+  },
+  "homepage": "https://github.com/enricotelesca/react-scroll-animation#README.md"
+}
