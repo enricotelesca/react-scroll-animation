@@ -1,8 +1,8 @@
 (function (global, factory) {
   if (typeof define === "function" && define.amd) {
-    define(['exports', 'react', './SlideComponent.jsx'], factory);
+    define(['exports', 'react', './SlideComponent.js'], factory);
   } else if (typeof exports !== "undefined") {
-    factory(exports, require('react'), require('./SlideComponent.jsx'));
+    factory(exports, require('react'), require('./SlideComponent.js'));
   } else {
     var mod = {
       exports: {}

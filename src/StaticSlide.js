@@ -5,7 +5,7 @@
 'use strict'
 
 import React, {Component} from 'react'
-import SlideComponent from './SlideComponent.jsx'
+import SlideComponent from './SlideComponent.js'
 
 function StaticSlideComponent () {
   return class extends Component {
