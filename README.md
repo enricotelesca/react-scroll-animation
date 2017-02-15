@@ -1,7 +1,9 @@
 ## react-scroll-animation library
 
 This is a library for realizing animated slides with animated content as react components using CSS properties.
+
 Animations are performed progressively with the page scroll.
+
 
 Are supported all numeric CSS properties (such as rgb/rgba colors, transform, opacity, SVG properties...)
 
@@ -12,6 +14,7 @@ Are supported all numeric CSS properties (such as rgb/rgba colors, transform, op
 
 
 [Example 1](http://getapper.com/)
+
 
 Here's the project where the lib was born
 
@@ -29,7 +32,9 @@ import {AnimatedComponent, AnimatedSlidesContainer, StaticSlide, FloatingSlide} 
 ## Usage
 (See the demo code for details and examples)
 
+
 Code a normal react component. For elements you want to animate add a ref and the attribute data-animation.
+
 eg:
 ```
 ...
@@ -44,15 +49,22 @@ the name of the object which defines an animation must be equal to the ref's val
 
 ### Timeline:
 • 0 represents the first instant in which a slide is displayed
+
 • 100 represents the last instant in which a slide is displayed
 
+
 Each element inside the slide is animated between those two values (start and end).
+
 Currently a time/animation span for an element cannot cross any of its other time/animations spans
 
+
 WRONG: start: 0, end: 50 ; start: 40, end 100
+
 OK: start: 0, end: 50 ; start: 50, end 100
 
+
 Inside the style array the initial and the end of the css animayed properties should be defined
+
 
 eg:
 ```
@@ -100,7 +112,8 @@ const AnimatedSlideColor = AnimatedComponent(SlideColor,slideColorAnimations)
 
 Now the slides...
 
-the prop heightFactor of AnimatedSlidesContainer represents the how much the user have to scroll (in terms of viewport height) before reach completely the following or preceding slide
+the prop heightFactor of AnimatedSlidesContainer represents the how much the user have to scroll (in terms of viewport height) before reach completely the following or preceding slide.
+
 To understand the FloatingSlide and StaticSlide behaviour see the demo.
 ```
 class Demo extends Component {
@@ -131,15 +144,27 @@ class Demo extends Component {
 ### Roadmap
 
 • npm module
+
 • document nested animated components
+
 • re-enable hidden features:
+
   - triggers
+
   - adaptive strategy for static vs animated version
+
   - force animate / stop animate for certain elements
+
   - dock feature / component
+
   - some minor features
+
 • extend doc
+
 • a lot of bug-fixing
+
 • some performance improvements to test and include
+
 • smooth mouse wheel plugin (?)
+
 
