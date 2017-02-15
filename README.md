@@ -22,7 +22,7 @@ Here's the project where the lib was born
 
 
 ## Install
-just clone the git repo where you prefer... Even if server-side rendering is possible, it is not currently possible to include it as npm module (see the roadmap)
+just clone the git repo where you prefer... Even though server-side rendering is possible, it is not currently possible to include it as npm module (see the roadmap)
 
 ### Import
 ```
