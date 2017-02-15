@@ -1,7 +1,8 @@
 ## react-scroll-animation library
 
 This is a library for realizing animated slides with animated content as react components using CSS properties.
-Animations are performed progressively with the page scroll
+Animations are performed progressively with the page scroll.
+
 Are supported all numeric CSS properties (such as rgb/rgba colors, transform, opacity, SVG properties...)
 
 #Library is still under development and i'm writing the doc... Use it carefully...
