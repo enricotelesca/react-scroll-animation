@@ -9,9 +9,11 @@ Are supported all numeric CSS properties (such as rgb/rgba colors, transform, op
 
 
 [Live demo and some doc](http://getapper.com/demo)
+
 [Example 1](http://getapper.com/)
 
 Here's the project where the lib was born
+
 [Example 2](https://eduscopio.it/percorso-studenti-scelta-scuola-superiore)
 
 
