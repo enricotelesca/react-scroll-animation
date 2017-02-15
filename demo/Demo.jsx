@@ -5,7 +5,7 @@
 'use strict'
 
 import React, {Component} from 'react'
-import {AnimatedComponent, AnimatedSlidesContainer, StaticSlide, FloatingSlide} from '../dist/index.js'
+import {AnimatedComponent, AnimatedSlidesContainer, StaticSlide, FloatingSlide} from '../index.js'
 
 class SlideTransform extends Component {
   render () {

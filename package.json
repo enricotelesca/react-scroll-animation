@@ -7,8 +7,7 @@
     "start-demo": "npm run serve-demo | npm run dev",
     "serve-demo": "./node_modules/.bin/http-server -p 8080",
     "dev": "webpack-dev-server --progress --colors --port 8090 --host 0.0.0.0 --config demo.webpack.config.js",
-    "test": "standard || exit 0",
-    "prepublish": "babel --plugins transform-es2015-modules-umd,transform-react-jsx src --out-dir ./dist"
+    "test": "standard || exit 0"
   },
   "repository": {
     "type": "git",
