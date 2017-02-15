@@ -42,7 +42,7 @@ eg:
 Define your animations as an object.
 the name of the object which defines an animation must be equal to the ref's value.
 
-# Timeline:
+### Timeline:
 • 0 represents the first instant in which a slide is displayed
 • 100 represents the last instant in which a slide is displayed
 
