@@ -10,6 +10,7 @@ Are supported all numeric CSS properties (such as rgb/rgba colors, transform, op
 
 [Live demo and some doc](http://getapper.com/demo)
 
+
 [Example 1](http://getapper.com/)
 
 Here's the project where the lib was born
@@ -130,6 +131,7 @@ class Demo extends Component {
 ### Roadmap
 
 • npm module
+• document nested animated components
 • re-enable hidden features:
   - triggers
   - adaptive strategy for static vs animated version
